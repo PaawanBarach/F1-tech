@@ -1,0 +1,18 @@
+{
+  "image": "mcr.microsoft.com/devcontainers/python:3.10",
+  "postCreateCommand": "bash .devcontainer/setup.sh",
+  "forwardPorts": [80, 7860],
+
+  // Mount your .env into the container
+  "runArgs": [
+    "--env-file", ".env"
+  ],
+
+  // Map any local env vars you want available in the container
+  "containerEnv": {
+    // Picks up HF_TOKEN from your Codespaces secret or local .env
+    "HF_TOKEN": "${localEnv:HF_TOKEN}"
+  },
+
+  "remoteUser": "vscode"
+}

@@ -1,0 +1,13 @@
+fastapi==0.115.14
+uvicorn==0.22.0
+gradio==5.35.0
+langchain==0.0.299
+requests==2.31.0
+beautifulsoup4==4.12.2
+feedparser==6.0.11
+newspaper3k==0.2.8
+PyPDF2==3.0.0
+python-telegram-bot==20.5
+discord.py==2.5.1
+diskcache==5.6.3
+schedule==1.2.2

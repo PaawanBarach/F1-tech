@@ -1,0 +1,18 @@
+rss_feeds:
+  - "https://www.racefans.net/feed/"
+  - "https://www.skysports.com/rss/12433"
+  - "https://www.gpfans.com/en/rss.xml"
+  - "https://www.autosport.com/rss/feed/all"
+  - "https://www.planetf1.com/feed/"
+  - "https://www.motorsport.com/rss/all/"
+  - "https://www.crash.net/rss/f1"
+json_feeds:
+  - "https://www.racefans.net/wp-json/wp/v2/posts"
+apis:
+  openf1_base: "https://api.openf1.org"
+  weather:     "https://api.open-meteo.com/v1/forecast"
+pdf_dirs:
+  - "./data/pdfs"
+image_dirs:
+  - "./data/images"
+dedupe_threshold: 0.8
