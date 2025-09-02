@@ -35,3 +35,23 @@ AI-powered system for Formula 1 technical analysis using RAG (Retrieval Augmente
 - FAISS vector storage
 - SentenceTransformers for embeddings
 - OpenF1 API integration
+
+## Testing Guidelines
+
+### Running Tests:
+```bash
+pip install -r requirements-test.txt
+pytest tests/ -v --cov=.
+```
+
+### Key Test Categories:
+1. API Endpoints (200 status, response structure)
+2. Agent Logic (OpenF1 vs KB fallback)
+3. Ingestion Pipeline (data flow validation)
+4. Edge Cases (empty queries, error handling)
+
+### Error Detection:
+- Check coverage report for untested paths
+- Look for slow tests (potential integration issues)
+- Verify mock implementations match real services
+- Monitor for flaky tests (random failures)
