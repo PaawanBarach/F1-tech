@@ -6,8 +6,9 @@ def test_direct_openf1_answer():
     with patch('agents_enhanced._query_openf1') as mock_openf1:
         mock_openf1.return_value = {"answer": "Pirelli provides 5 compounds", "source": "openf1.io"}
         response = answer_question("What tire compounds are used in F1?")
-        assert "Pirelli" in response
-        assert "openf1.io" in response
+        assert isinstance(response, str), "Response should be a string"
+        assert "Pirelli" in response, "Expected tire manufacturer mention"
+        assert "openf1.io" in response, "Missing OpenF1 source citation"
 
 def test_fallback_to_knowledge_base():
     with patch('agents_enhanced._query_openf1') as mock_openf1:

@@ -16,6 +16,9 @@ def test_knowledge_base_status():
 
 def test_ask_endpoint():
     test_question = {"question": "Explain F1 tire compounds"}
-    response = client.post("/ask", json=test_question)
+    response = client.post("/ask", 
+        json=test_question,
+        headers={"Authorization": f"Bearer {os.environ['HF_TOKEN']}"}
+    )
     assert response.status_code == 200
     assert "answer" in response.json()

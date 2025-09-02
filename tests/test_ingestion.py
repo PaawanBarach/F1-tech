@@ -5,6 +5,8 @@ from unittest.mock import patch
 @patch('ingestion_fixed.ingest_rss')
 @patch('ingestion_fixed.ingest_json')
 @patch('ingestion_fixed.ingest_pdfs')
+@patch('ingestion_fixed.ingest_images')
+@patch('ingestion_fixed.ingest_openf1')
 def test_full_ingestion(mock_pdfs, mock_json, mock_rss):
     mock_rss.return_value = 5
     mock_json.return_value = 3
