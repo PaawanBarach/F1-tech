@@ -40,7 +40,7 @@ AI-powered system for Formula 1 technical analysis using RAG (Retrieval Augmente
 
 ### Running Tests:
 ```bash
-pip install -r requirements-test.txt
+pip install -r tests/requirements.txt
 pytest tests/ -v --cov=.
 ```
 
