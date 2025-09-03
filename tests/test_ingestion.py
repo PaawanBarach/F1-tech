@@ -1,4 +1,7 @@
 import pytest
+import sys
+from pathlib import Path
+sys.path.append(str(Path(__file__).parent.parent))
 from ingestion_fixed import run_full_ingest
 from unittest.mock import patch
 
