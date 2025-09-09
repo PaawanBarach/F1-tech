@@ -3,7 +3,7 @@ import gradio as gr
 import threading, time
 import os
 
-from agents_enhanced import answer_question
+from agents import answer_question
 from ingestion import run_full_ingest
 from articles import generate_technical_article
 from vectorstore import STORE, upsert_texts
@@ -62,7 +62,11 @@ def launch_ui():
                 btn.click(lambda: generate_technical_article()[1], None, art_view)
                 art_list.change(lambda fn: open(f"articles/{fn}","r",encoding="utf-8").read(), art_list, art_view)
 
-        demo.launch(server_name="0.0.0.0", server_port=7860, prevent_thread_lock=True)
+        demo.launch(
+            server_name="127.0.0.1",
+            server_port=7860,
+            share=False,
+        )
 
 if __name__ == "__main__":
     threading.Thread(target=launch_ui, daemon=True).start()

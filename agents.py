@@ -22,7 +22,6 @@ SYSTEM = (
 )
 
 def _query_openf1(question: str):
-    # simple keyword dispatch
     base = "https://api.openf1.org/v1"
     if "race" in question.lower():
         r = requests.get(f"{base}/races", timeout=5).json()
@@ -33,14 +32,12 @@ def _query_openf1(question: str):
     return None, None
 
 def answer_question(query: str):
-    # 1) cache?
     cached = get_cached_response(query)
     if cached:
         thinking, answer, sources = cached
         imgs = dynamic_plots("\n".join(sources))
         return thinking, answer, sources, imgs
 
-    # 2) try OpenF1
     of1_ans, of1_src = _query_openf1(query)
     if of1_ans:
         upsert_texts([f"OpenF1: {query} -> {of1_ans}"])
@@ -48,12 +45,10 @@ def answer_question(query: str):
         set_cached_response(query, (thinking, of1_ans, of1_src))
         return thinking, of1_ans, of1_src, []
 
-    # 3) retrieval from FAISS
     docs = STORE.similarity_search(query, k=5)
     sources = [d.page_content for d in docs if d.page_content != "placeholder"]
     context = "\n\n".join(sources) or "No relevant KB context."
 
-    # 4) LLM call
     resp = client.chat.completions.create(
         model="HuggingFaceTB/SmolLM3-3B",
         messages=[
@@ -63,18 +58,15 @@ def answer_question(query: str):
     )
     content = resp.choices[0].message.content
 
-    # 5) split reasoning/answer
+
     m = re.search(r"<think>(.*?)</think>", content, re.DOTALL)
     thinking = m.group(1).strip() if m else ""
     answer   = re.sub(r"<think>.*?</think>", "", content, flags=re.DOTALL).strip()
 
-    # 6) if no real KB hits, store learning note
     if all(len(s) < 20 for s in sources):
         upsert_texts([f"Learning note: {query}"])
-
-    # 7) dynamic plots if mentioned
     imgs = dynamic_plots(context)
 
-    # 8) cache & return
+
     set_cached_response(query, (thinking, answer, sources))
     return thinking, answer, sources, imgs

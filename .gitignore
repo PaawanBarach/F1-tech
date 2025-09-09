@@ -18,3 +18,4 @@ articles/
 # Docker
 *.log
 *.tmp
+.aider*
